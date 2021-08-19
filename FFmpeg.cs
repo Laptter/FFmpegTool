@@ -10,9 +10,9 @@ namespace FFMpegSharpTest
     public class FFmpeg
     {
         private Process process;
-        public Action<double> OnProgress;
-        public Action OnComplete;
-        public Action<string> OnError;
+        public EventHandler<double> OnProgress;
+        public EventHandler OnComplete;
+        public EventHandler<string> OnError;
         private double totalTime;
         private string args;
         public FFmpeg(string args)
@@ -21,7 +21,65 @@ namespace FFMpegSharpTest
         }
 
 
-        public void Work()
+        /// <summary>
+        /// 2个视频拼接
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="outPut"></param>
+        public void Concat(string input, string outPut)
+        { 
+
+        }
+
+        /// <summary>
+        /// 2个或者2个以上的视频拼接
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="outPut"></param>
+        public void Concat(string txtPath)
+        {
+
+        }
+
+
+        /// <summary>
+        /// 提取视频流
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="outPut"></param>
+        public void ExtractVideo(string input, string outPut)
+        { 
+
+        }
+
+        /// <summary>
+        /// 提取音频流
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="outPut"></param>
+        public void ExtractAudio(string input, string outPut)
+        {
+
+        }
+
+
+
+        public void Work(bool mulThread)
+        {
+            if (mulThread)
+            {
+                Task.Factory.StartNew(() =>{
+                    Work();
+                });
+            }
+            else
+            {
+                Work();
+            }
+        }
+
+
+        private void Work()
         {
             process = new Process
             {
@@ -43,6 +101,8 @@ namespace FFMpegSharpTest
             process.WaitForExit();
         }
 
+
+
         private void Process_ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
             try
@@ -56,7 +116,7 @@ namespace FFMpegSharpTest
                         {
                             var time = split[i].Split('=');
                             var s = TimeSpan.Parse(time[1]).TotalSeconds;
-                            OnProgress?.Invoke(s/totalTime);
+                            OnProgress?.Invoke(this,s/totalTime);
                         }
                         else if (split[i].Contains("Duration"))
                         {
@@ -66,14 +126,13 @@ namespace FFMpegSharpTest
                         }
                     }
                 }
-
             }
             catch { }
         }
 
         private void Process_Exited(object sender, EventArgs e)
         {
-            OnComplete?.Invoke();
+            OnComplete?.Invoke(this,e);
         }
     }
 }
