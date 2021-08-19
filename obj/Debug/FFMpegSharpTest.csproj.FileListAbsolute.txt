@@ -1,0 +1,7 @@
+E:\Learning\FFMpegSharpTest\bin\Debug\FFMpegSharpTest.exe.config
+E:\Learning\FFMpegSharpTest\bin\Debug\FFMpegSharpTest.exe
+E:\Learning\FFMpegSharpTest\bin\Debug\FFMpegSharpTest.pdb
+E:\Learning\FFMpegSharpTest\obj\Debug\FFMpegSharpTest.csproj.AssemblyReference.cache
+E:\Learning\FFMpegSharpTest\obj\Debug\FFMpegSharpTest.csproj.CoreCompileInputs.cache
+E:\Learning\FFMpegSharpTest\obj\Debug\FFMpegSharpTest.exe
+E:\Learning\FFMpegSharpTest\obj\Debug\FFMpegSharpTest.pdb
